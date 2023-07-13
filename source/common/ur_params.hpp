@@ -399,6 +399,11 @@ inline std::ostream &
 operator<<(std::ostream &os,
            const struct ur_exp_sampler_mip_properties_t params);
 inline std::ostream &
+operator<<(std::ostream &os, const struct ur_exp_interop_memory_desc_t params);
+inline std::ostream &
+operator<<(std::ostream &os,
+           const struct ur_exp_interop_semaphore_desc_t params);
+inline std::ostream &
 operator<<(std::ostream &os, const struct ur_exp_command_buffer_desc_t params);
 inline std::ostream &operator<<(std::ostream &os,
                                 enum ur_exp_peer_info_t value);
@@ -9567,6 +9572,39 @@ operator<<(std::ostream &os,
     return os;
 }
 inline std::ostream &
+operator<<(std::ostream &os, const struct ur_exp_interop_memory_desc_t params) {
+    os << "(struct ur_exp_interop_memory_desc_t){";
+
+    os << ".stype = ";
+
+    os << (params.stype);
+
+    os << ", ";
+    os << ".pNext = ";
+
+    ur_params::serializeStruct(os, (params.pNext));
+
+    os << "}";
+    return os;
+}
+inline std::ostream &
+operator<<(std::ostream &os,
+           const struct ur_exp_interop_semaphore_desc_t params) {
+    os << "(struct ur_exp_interop_semaphore_desc_t){";
+
+    os << ".stype = ";
+
+    os << (params.stype);
+
+    os << ", ";
+    os << ".pNext = ";
+
+    ur_params::serializeStruct(os, (params.pNext));
+
+    os << "}";
+    return os;
+}
+inline std::ostream &
 operator<<(std::ostream &os, const struct ur_exp_command_buffer_desc_t params) {
     os << "(struct ur_exp_command_buffer_desc_t){";
 
@@ -10026,9 +10064,9 @@ inline std::ostream &operator<<(
     os << *(params->psize);
 
     os << ", ";
-    os << ".fileDescriptor = ";
+    os << ".interopMemDesc = ";
 
-    os << *(params->pfileDescriptor);
+    ur_params::serializePtr(os, *(params->pinteropMemDesc));
 
     os << ", ";
     os << ".phInteropMem = ";
@@ -10110,14 +10148,14 @@ operator<<(std::ostream &os, const struct
     ur_params::serializePtr(os, *(params->phDevice));
 
     os << ", ";
-    os << ".fileDescriptor = ";
+    os << ".interopSemaphoreDesc = ";
 
-    os << *(params->pfileDescriptor);
+    ur_params::serializePtr(os, *(params->pinteropSemaphoreDesc));
 
     os << ", ";
-    os << ".phInteropSemaphoreHandle = ";
+    os << ".phInteropSemaphore = ";
 
-    ur_params::serializePtr(os, *(params->pphInteropSemaphoreHandle));
+    ur_params::serializePtr(os, *(params->pphInteropSemaphore));
 
     return os;
 }

@@ -119,6 +119,8 @@ Types
 * ${x}_exp_image_mem_handle_t
 * ${x}_exp_interop_mem_handle_t
 * ${x}_exp_interop_semaphore_handle_t
+* ${x}_exp_interop_memory_desc_t
+* ${x}_exp_interop_semaphore_desc_t
 
 Functions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -160,6 +162,8 @@ Changelog
 |          || Added mip filter mode.                                  |
 +----------+----------------------------------------------------------+
 | 3.0      | Added device query for bindless images on shared USM    |
++----------+---------------------------------------------------------+
+| 4.0      | Updated to use new interop resource descriptors         |
 +----------+---------------------------------------------------------+
 
 Contributors

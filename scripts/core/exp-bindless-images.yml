@@ -133,6 +133,20 @@ members:
       name: mipFilterMode
       desc: "[in] mipmap filter mode used for filtering between mipmap levels"
 --- #--------------------------------------------------------------------------
+type: struct
+desc: "Describes an interop memory resource descriptor"
+class: $xBindlessImages
+name: $x_exp_interop_memory_desc_t
+base: $x_base_desc_t
+members: []
+--- #--------------------------------------------------------------------------
+type: struct
+desc: "Describes an interop semaphore resource descriptor"
+class: $xBindlessImages
+name: $x_exp_interop_semaphore_desc_t
+base: $x_base_desc_t
+members: []
+--- #--------------------------------------------------------------------------
 type: function
 desc: "USM allocate pitched memory"
 class: $xUSM
@@ -518,9 +532,9 @@ params:
     - type: size_t
       name: size
       desc: "[in] size of the external memory"
-    - type: uint32_t
-      name: fileDescriptor
-      desc: "[in] the file descriptor"
+    - type: $x_exp_interop_memory_desc_t*
+      name: interopMemDesc
+      desc: "[in] the interop memory descriptor"
     - type: $x_exp_interop_mem_handle_t*
       name: phInteropMem
       desc: "[out] interop memory handle to the external memory"
@@ -597,11 +611,11 @@ params:
     - type: $x_device_handle_t
       name: hDevice
       desc: "[in] handle of the device object"
-    - type: uint32_t
-      name: fileDescriptor
-      desc: "[in] the file descriptor"
+    - type: $x_exp_interop_semaphore_desc_t*
+      name: interopSemaphoreDesc
+      desc: "[in] the interop semaphore descriptor"
     - type: $x_exp_interop_semaphore_handle_t*
-      name: phInteropSemaphoreHandle
+      name: phInteropSemaphore
       desc: "[out] interop semaphore handle to the external semaphore"
 returns:
     - $X_RESULT_ERROR_INVALID_CONTEXT

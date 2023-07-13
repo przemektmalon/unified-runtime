@@ -2140,6 +2140,24 @@ class ur_exp_sampler_mip_properties_t(Structure):
     ]
 
 ###############################################################################
+## @brief Describes an interop memory resource descriptor
+class ur_exp_interop_memory_desc_t(Structure):
+    _fields_ = [
+        ("stype", ur_structure_type_t),                                 ## [in] type of this structure, must be
+                                                                        ## ::UR_STRUCTURE_TYPE_EXP_INTEROP_MEMORY_DESC
+        ("pNext", c_void_p)                                             ## [in][optional] pointer to extension-specific structure
+    ]
+
+###############################################################################
+## @brief Describes an interop semaphore resource descriptor
+class ur_exp_interop_semaphore_desc_t(Structure):
+    _fields_ = [
+        ("stype", ur_structure_type_t),                                 ## [in] type of this structure, must be
+                                                                        ## ::UR_STRUCTURE_TYPE_EXP_INTEROP_SEMAPHORE_DESC
+        ("pNext", c_void_p)                                             ## [in][optional] pointer to extension-specific structure
+    ]
+
+###############################################################################
 ## @brief The extension string which defines support for command-buffers which
 ##        is returned when querying device extensions.
 UR_COMMAND_BUFFER_EXTENSION_STRING_EXP = "ur_exp_command_buffer"
@@ -3139,9 +3157,9 @@ else:
 ###############################################################################
 ## @brief Function-pointer for urBindlessImagesImportOpaqueFDExp
 if __use_win_types:
-    _urBindlessImagesImportOpaqueFDExp_t = WINFUNCTYPE( ur_result_t, ur_context_handle_t, ur_device_handle_t, c_size_t, c_ulong, POINTER(ur_exp_interop_mem_handle_t) )
+    _urBindlessImagesImportOpaqueFDExp_t = WINFUNCTYPE( ur_result_t, ur_context_handle_t, ur_device_handle_t, c_size_t, POINTER(ur_exp_interop_memory_desc_t), POINTER(ur_exp_interop_mem_handle_t) )
 else:
-    _urBindlessImagesImportOpaqueFDExp_t = CFUNCTYPE( ur_result_t, ur_context_handle_t, ur_device_handle_t, c_size_t, c_ulong, POINTER(ur_exp_interop_mem_handle_t) )
+    _urBindlessImagesImportOpaqueFDExp_t = CFUNCTYPE( ur_result_t, ur_context_handle_t, ur_device_handle_t, c_size_t, POINTER(ur_exp_interop_memory_desc_t), POINTER(ur_exp_interop_mem_handle_t) )
 
 ###############################################################################
 ## @brief Function-pointer for urBindlessImagesMapExternalArrayExp
@@ -3160,9 +3178,9 @@ else:
 ###############################################################################
 ## @brief Function-pointer for urBindlessImagesImportExternalSemaphoreOpaqueFDExp
 if __use_win_types:
-    _urBindlessImagesImportExternalSemaphoreOpaqueFDExp_t = WINFUNCTYPE( ur_result_t, ur_context_handle_t, ur_device_handle_t, c_ulong, POINTER(ur_exp_interop_semaphore_handle_t) )
+    _urBindlessImagesImportExternalSemaphoreOpaqueFDExp_t = WINFUNCTYPE( ur_result_t, ur_context_handle_t, ur_device_handle_t, POINTER(ur_exp_interop_semaphore_desc_t), POINTER(ur_exp_interop_semaphore_handle_t) )
 else:
-    _urBindlessImagesImportExternalSemaphoreOpaqueFDExp_t = CFUNCTYPE( ur_result_t, ur_context_handle_t, ur_device_handle_t, c_ulong, POINTER(ur_exp_interop_semaphore_handle_t) )
+    _urBindlessImagesImportExternalSemaphoreOpaqueFDExp_t = CFUNCTYPE( ur_result_t, ur_context_handle_t, ur_device_handle_t, POINTER(ur_exp_interop_semaphore_desc_t), POINTER(ur_exp_interop_semaphore_handle_t) )
 
 ###############################################################################
 ## @brief Function-pointer for urBindlessImagesDestroyExternalSemaphoreExp
